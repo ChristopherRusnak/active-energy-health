@@ -1,10 +1,16 @@
 'use client'
 
 import { useState } from 'react'
+import type { Route } from 'next'
 import Link from 'next/link'
 import { BOOKING_URL } from '@/lib/brand'
 
-const nav = [
+type NavItem = {
+  label: string
+  href: Route
+}
+
+const nav: NavItem[] = [
   { label: 'Services', href: '/services' },
   { label: 'About', href: '/about' },
   { label: 'Contact', href: '/contact' },
@@ -45,7 +51,7 @@ export default function Header() {
           ))}
           <div className="w-px h-4 bg-navy/[0.12]" />
           <Link
-            href={BOOKING_URL}
+            href={BOOKING_URL as Route}
             className="font-body text-[0.75rem] font-600 uppercase tracking-[0.1em] bg-electric text-white px-5 py-2.5 rounded-sm hover:bg-blue-light transition-colors duration-200"
           >
             Book a Consultation
@@ -78,7 +84,7 @@ export default function Header() {
             </Link>
           ))}
           <Link
-            href={BOOKING_URL}
+            href={BOOKING_URL as Route}
             onClick={() => setOpen(false)}
             className="font-body text-[0.75rem] font-600 uppercase tracking-[0.1em] bg-electric text-white px-5 py-3 rounded-sm text-center"
           >
