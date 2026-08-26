@@ -13,7 +13,7 @@ const pillars = [
     kicker: 'Aesthetic Medicine',
     heading: 'Precision Aesthetics',
     body: 'Medical-grade aesthetic treatments administered by trained practitioners. Subtle, natural results — not a catalogue of procedures.',
-    services: ['Botox & Dysport', 'Dermal Fillers', 'Laser Hair Removal', 'Skin Resurfacing & IPL'],
+    services: ['Cosmetic Injectables', 'Dermal Fillers', 'Laser Hair Removal', 'Skin Resurfacing & IPL'],
     href: '/services#aesthetics',
     accent: false,
   },

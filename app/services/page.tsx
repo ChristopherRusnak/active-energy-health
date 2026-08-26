@@ -24,7 +24,7 @@ const hormoneServices = [
 
 const aestheticServices = [
   {
-    name: "Botox & Dysport",
+    name: "Cosmetic Injectables",
     description: "Precision neuromodulator injections for expression lines. Conservative, natural results — administered by trained medical practitioners.",
   },
   {
@@ -33,7 +33,7 @@ const aestheticServices = [
   },
   {
     name: "Laser Hair Removal",
-    description: "Medical-grade laser with melanin reader technology for safe treatment across all skin types. Permanent reduction in 6–8 sessions.",
+    description: "Medical-grade laser with melanin reader technology for safe treatment across all skin types. Long-term reduction in 6–8 sessions.",
   },
   {
     name: "Laser Skin Resurfacing",

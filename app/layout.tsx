@@ -22,7 +22,7 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   title: 'Active Energy Health | Hormone Health & Aesthetic Medicine — Saskatoon',
   description: 'Clinician-led hormone health, TRT, HRT, and aesthetic medicine in Saskatoon. Evidence-based care for men and women.',
-  keywords: 'TRT Saskatoon, hormone replacement therapy Saskatoon, HRT Saskatoon, testosterone replacement, menopause treatment, Botox Saskatoon, medical spa Saskatoon',
+  keywords: 'TRT Saskatoon, hormone replacement therapy Saskatoon, HRT Saskatoon, testosterone replacement, menopause treatment, cosmetic injectables Saskatoon, medical spa Saskatoon',
   openGraph: {
     title: 'Active Energy Health',
     description: 'Clinician-led hormone health and aesthetic medicine in Saskatoon.',
