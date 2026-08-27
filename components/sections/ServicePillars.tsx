@@ -3,9 +3,9 @@ import Link from 'next/link'
 const pillars = [
   {
     kicker: 'Hormone Health',
-    heading: 'TRT & HRT',
-    body: 'Comprehensive testosterone and hormone replacement therapy for men and women. Lab-based assessment, personalised protocols, and ongoing clinical monitoring — not a one-size prescription.',
-    services: ['Men\'s Testosterone Replacement', 'Women\'s HRT & Menopause Care', 'Lab Work & Hormone Panels', 'Ongoing Protocol Management'],
+    heading: 'HRT & TRT',
+    body: 'Comprehensive hormone and testosterone replacement therapy for men and women. Lab-based assessment, personalised protocols, and ongoing clinical monitoring — not a one-size prescription.',
+    services: ['Women\'s HRT & Menopause Care', 'Men\'s Testosterone Replacement', 'Lab Work & Hormone Panels', 'Ongoing Protocol Management'],
     href: '/services#hormone-health',
     accent: true,
   },

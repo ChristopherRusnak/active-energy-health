@@ -4,17 +4,17 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Services | Active Energy Health',
-  description: 'TRT, HRT, aesthetic medicine, and longevity programmes in Saskatoon. Clinician-led care with lab-informed protocols.',
+  description: 'HRT, TRT, aesthetic medicine, and longevity programmes in Saskatoon. Clinician-led care with lab-informed protocols.',
 }
 
 const hormoneServices = [
   {
-    name: "Men's Testosterone Replacement (TRT)",
-    description: "Comprehensive assessment and treatment for low testosterone. Includes full hormone panel, symptom review, personalised protocol, and ongoing monitoring. We treat the patient, not just the number.",
-  },
-  {
     name: "Women's HRT & Menopause Care",
     description: "Hormone replacement therapy for perimenopause and menopause. Addresses energy, sleep, mood, body composition, sexual health, and cycle changes through evidence-based, individualised protocols.",
+  },
+  {
+    name: "Men's Testosterone Replacement (TRT)",
+    description: "Comprehensive assessment and treatment for low testosterone. Includes full hormone panel, symptom review, personalised protocol, and ongoing monitoring. We treat the patient, not just the number.",
   },
   {
     name: "Hormone Panels & Lab Review",
@@ -125,8 +125,8 @@ export default function ServicesPage() {
           <SectionHeader
             id="hormone-health"
             kicker="Hormone Health"
-            heading="TRT &"
-            accent="HRT."
+            heading="HRT &"
+            accent="TRT."
           />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {hormoneServices.map((s) => <ServiceCard key={s.name} {...s} />)}

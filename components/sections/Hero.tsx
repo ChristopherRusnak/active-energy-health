@@ -25,7 +25,7 @@ export default function Hero() {
 
             {/* Subhead */}
             <p className="font-body text-[1.125rem] text-navy/65 leading-[1.7] max-w-xl mb-10">
-              Clinician-led TRT and HRT programmes for men and women, combined with precision aesthetic medicine. Rooted in evidence. Focused on outcomes.
+              Clinician-led HRT and TRT programmes for men and women, combined with precision aesthetic medicine. Rooted in evidence. Focused on outcomes.
             </p>
 
             {/* CTAs */}
