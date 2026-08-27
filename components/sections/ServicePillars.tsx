@@ -21,7 +21,7 @@ const pillars = [
     kicker: 'Longevity',
     heading: 'Performance Medicine',
     body: 'Emerging programmes focused on metabolic health, body composition, and cellular optimisation. Built for patients who want more than symptom management.',
-    services: ['GLP-1 Weight Management', 'NAD+ IV Therapy', 'Metabolic Assessment', 'More coming in 2025'],
+    services: ['GLP-1 Weight Management', 'NAD+ IV Therapy', 'Metabolic Assessment', 'More coming in 2026'],
     href: '/services#longevity',
     accent: false,
     badge: 'Expanding',
