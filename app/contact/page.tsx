@@ -35,15 +35,20 @@ export default function ContactPage() {
           <div>
             <p className="kicker mb-6">Book online</p>
 
-            {/* Booking placeholder */}
-            <div className="rounded-card border-2 border-dashed border-navy/15 p-12 flex flex-col items-center justify-center text-center gap-4 mb-8">
-              <p className="font-heading text-navy/40" style={{ fontFamily: 'var(--font-heading)', fontSize: '1.3rem' }}>
-                Online booking coming soon
+            
+              <a
+              href={BOOKING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-card bg-electric hover:bg-blue-light transition-colors duration-200 p-12 flex flex-col items-center justify-center text-center gap-3 mb-8"
+            >
+              <p className="font-heading text-white" style={{ fontFamily: 'var(--font-heading)', fontSize: '1.3rem' }}>
+                Book online now
               </p>
-              <p className="font-body text-sm text-navy/40">
-                In the meantime, call or email us to book your free consultation.
+              <p className="font-body text-sm text-white/70">
+                Opens our secure booking page in a new tab.
               </p>
-            </div>
+            </a>
 
             <div className="flex flex-col gap-4">
               <a
