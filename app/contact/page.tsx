@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import CopyEmailButton from '@/components/CopyEmailButton'
 import { BOOKING_URL, PHONE, EMAIL, ADDRESS } from '@/lib/brand'
 import type { Metadata } from 'next'
 
@@ -63,6 +64,9 @@ export default function ContactPage() {
               >
                 Email us →
               </a>
+              <div className="flex justify-center">
+                <CopyEmailButton email={EMAIL} />
+              </div>
             </div>
           </div>
 
