@@ -19,6 +19,7 @@
  *    they prescribe against. Do not write copy implying the physician treats patients.
  */
 
+import Image from 'next/image'
 import fs from 'node:fs'
 import path from 'node:path'
 
@@ -133,6 +134,12 @@ const groups: Group[] = [
         does: 'Hormone replacement and testosterone replacement therapy.',
       },
       {
+        name: 'Falan Speakman',
+        credentials: 'NP',
+        role: 'Nurse Practitioner',
+        does: 'Hormone replacement and testosterone replacement therapy.',
+      },
+      {
         name: 'Heather Plaxton',
         credentials: 'NP',
         role: 'Nurse Practitioner',
@@ -224,13 +231,19 @@ function MemberCard({ member, photos }: { member: Member; photos: PhotoIndex }) 
   const photo = resolvePhoto(member, photos)
   return (
     <div className="rounded-card border border-navy/[0.07] overflow-hidden flex flex-col">
-      <div className="aspect-[4/5] bg-navy/[0.03] border-b border-navy/[0.07] overflow-hidden">
+      <div className="relative aspect-[4/5] bg-navy/[0.03] border-b border-navy/[0.07] overflow-hidden">
         {photo ? (
-          /* eslint-disable-next-line @next/next/no-img-element */
-          <img
+          /*
+           * next/image resizes and re-encodes (WebP/AVIF) on demand. The source files are
+           * ~600kB PNGs but render a few hundred pixels wide, so `sizes` matters here —
+           * it is what stops the browser fetching the full-resolution original.
+           */
+          <Image
             src={photo}
             alt={`${member.name}, ${member.role} at Active Energy Health`}
-            className="h-full w-full object-cover"
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            className="object-cover"
           />
         ) : member.hidePhoto || member.monogram ? (
           <div className="h-full w-full flex items-center justify-center bg-gradient-to-br from-navy to-electric">

@@ -7,6 +7,10 @@ time the site builds; no code change required.
 - **Format:** .jpg, .jpeg, .png, .webp or .avif
 - **Crop:** portrait, 4:5 (e.g. 800 x 1000). Anything else is centre-cropped to fit.
 - Anyone without a file shows a neutral "Photo coming" tile, so partial sets look fine.
+- Keep the full-resolution originals here. They are resized and converted to WebP on
+  demand by next/image, so a 600kB PNG is delivered as roughly 8-12kB.
+
+**Still needed:** Marina Da Silva, TJ Olamide, Adrea Anderson.
 
 ## How matching works
 
@@ -23,6 +27,7 @@ neither, rather than guessed at.
 | Dr. Christopher Rusnak | `Christopher…` or `Chris…` (falls back to a CR monogram) |
 | Marina Da Silva | `Marina…` |
 | Andrea Clinton | `Andrea…` |
+| Falan Speakman | `Falan…` |
 | Heather Plaxton | `Heather…` |
 | Michael McFadden | `Michael…` |
 | TJ Olamide | `TJ…` |
