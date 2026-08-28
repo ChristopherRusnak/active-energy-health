@@ -34,22 +34,51 @@ function slugify(name: string) {
     .replace(/^-|-$/g, '')
 }
 
+/** Leading first-name token of a filename: "Michael_07_13_2026.png" -> "michael". */
+function firstNameKey(filename: string) {
+  const base = path.basename(filename, path.extname(filename)).toLowerCase()
+  return base.split(/[^a-z0-9]+/).filter(Boolean)[0] ?? ''
+}
+
 /**
- * Map slug -> public path for whatever headshots currently exist in /public/team.
- * Read once at module load; this is a server component, so it never reaches the client.
- * A missing folder is not an error — it just means no photos have been added yet.
+ * Index whatever headshots currently sit in /public/team, keyed both by full slug
+ * ("andrea-clinton") and by leading first name ("andrea"), so a file can be dropped in
+ * either renamed or exactly as exported from Drive. Read once at module load; this is a
+ * server component, so it never reaches the client. A missing folder is not an error —
+ * it just means no photos have been added yet.
  */
-function loadPhotos(): Record<string, string> {
+function loadPhotos(): { bySlug: Record<string, string>; byFirstName: Record<string, string> } {
+  const bySlug: Record<string, string> = {}
+  const byFirstName: Record<string, string> = {}
+  let files: string[] = []
   try {
-    return Object.fromEntries(
-      fs
-        .readdirSync(PHOTO_DIR)
-        .filter((f) => PHOTO_EXTS.includes(path.extname(f).toLowerCase()))
-        .map((f) => [path.basename(f, path.extname(f)).toLowerCase(), `/team/${f}`]),
-    )
+    files = fs.readdirSync(PHOTO_DIR).filter((f) => PHOTO_EXTS.includes(path.extname(f).toLowerCase()))
   } catch {
-    return {}
+    return { bySlug, byFirstName }
   }
+  for (const f of files) {
+    bySlug[path.basename(f, path.extname(f)).toLowerCase()] = `/team/${f}`
+    const first = firstNameKey(f)
+    // Two files sharing a first name are ambiguous — index neither rather than guess.
+    if (first) byFirstName[first] = first in byFirstName ? '' : `/team/${f}`
+  }
+  return { bySlug, byFirstName }
+}
+
+type PhotoIndex = ReturnType<typeof loadPhotos>
+
+/** Resolve one member's headshot, or undefined if we have nothing unambiguous. */
+function resolvePhoto(member: Member, photos: PhotoIndex) {
+  if (member.hidePhoto) return undefined
+  if (member.photo) return member.photo
+  const slug = slugify(member.name)
+  if (photos.bySlug[slug]) return photos.bySlug[slug]
+  // Only fall back to a first-name match when no one else shares that first name.
+  for (const first of [slug.split('-')[0], ...(member.photoAliases ?? [])]) {
+    const sameFirst = TEAM_FIRST_NAMES.filter((n) => n === first).length
+    if (sameFirst <= 1 && photos.byFirstName[first]) return photos.byFirstName[first]
+  }
+  return undefined
 }
 
 type Member = {
@@ -58,7 +87,12 @@ type Member = {
   role: string
   does: string
   photo?: string
+  /** Never show a photo, even if a matching file exists. */
   hidePhoto?: boolean
+  /** When no photo is available, show initials rather than the "Photo coming" tile. */
+  monogram?: boolean
+  /** Extra first-name spellings to match filenames on, e.g. a "Chris_*.png" for a Christopher. */
+  photoAliases?: string[]
 }
 
 type Group = {
@@ -77,7 +111,8 @@ const groups: Group[] = [
         credentials: 'MD, CCFP(EM)',
         role: 'Medical Director',
         does: 'Writes and maintains the treatment protocols and clinical guidelines every programme here runs on.',
-        hidePhoto: true,
+        monogram: true,
+        photoAliases: ['chris'],
       },
       {
         name: 'Marina Da Silva',
@@ -173,6 +208,8 @@ const groups: Group[] = [
   },
 ]
 
+const TEAM_FIRST_NAMES = groups.flatMap((g) => g.members.map((m) => slugify(m.name).split('-')[0]))
+
 function initials(name: string) {
   return name
     .replace(/^Dr\.\s*/, '')
@@ -183,9 +220,8 @@ function initials(name: string) {
     .join('')
 }
 
-function MemberCard({ member, photos }: { member: Member; photos: Record<string, string> }) {
-  // An opt-out always wins; then an explicit path; then whatever file is sitting in /public/team.
-  const photo = member.hidePhoto ? undefined : member.photo ?? photos[slugify(member.name)]
+function MemberCard({ member, photos }: { member: Member; photos: PhotoIndex }) {
+  const photo = resolvePhoto(member, photos)
   return (
     <div className="rounded-card border border-navy/[0.07] overflow-hidden flex flex-col">
       <div className="aspect-[4/5] bg-navy/[0.03] border-b border-navy/[0.07] overflow-hidden">
@@ -196,7 +232,7 @@ function MemberCard({ member, photos }: { member: Member; photos: Record<string,
             alt={`${member.name}, ${member.role} at Active Energy Health`}
             className="h-full w-full object-cover"
           />
-        ) : member.hidePhoto ? (
+        ) : member.hidePhoto || member.monogram ? (
           <div className="h-full w-full flex items-center justify-center bg-gradient-to-br from-navy to-electric">
             <span
               className="font-heading text-white/85"
