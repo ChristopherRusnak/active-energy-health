@@ -1,8 +1,8 @@
 const differentiators = [
   {
     number: '01',
-    heading: 'Physician-directed',
-    body: 'Every protocol is designed and overseen by a licensed physician. Not a nurse, not a technician — a doctor with clinical accountability for your care.',
+    heading: 'Physician-designed',
+    body: 'Every treatment protocol is designed and maintained by a licensed physician, and a nurse practitioner reviews your labs and writes your prescription. Clinical decisions sit with clinical staff.',
   },
   {
     number: '02',

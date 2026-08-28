@@ -23,7 +23,7 @@ export default function CTABanner() {
             href={BOOKING_URL}
             className="font-body text-sm font-600 uppercase tracking-[0.1em] bg-electric text-white px-8 py-4 rounded-sm hover:bg-blue-light transition-colors duration-200 min-h-[44px] flex items-center"
           >
-            Book a Free Consultation
+            Book Now
           </Link>
           <a
             href={`tel:${PHONE}`}

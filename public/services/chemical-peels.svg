@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 720" width="960" height="720" role="img" aria-hidden="true">
+<defs>
+<linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#4A8AD8"/><stop offset="0.55" stop-color="#A3C4F3"/><stop offset="1" stop-color="#DCE9FB"/>
+</linearGradient>
+<radialGradient id="v" cx="0.5" cy="0.42" r="0.78">
+<stop offset="0.55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#0B1F3D" stop-opacity="0.4"/>
+</radialGradient>
+<clipPath id="c"><rect width="960" height="720"/></clipPath>
+</defs>
+<rect width="960" height="720" fill="url(#g)"/>
+<g clip-path="url(#c)"><path d="M0 90 C 260 64, 700 116, 960 78" fill="none" stroke="#fff" stroke-opacity="0.28" stroke-width="2.6"/><path d="M0 156 C 260 127, 700 185, 960 144" fill="none" stroke="#fff" stroke-opacity="0.26" stroke-width="2.42"/><path d="M0 222 C 260 190, 700 254, 960 210" fill="none" stroke="#fff" stroke-opacity="0.23" stroke-width="2.24"/><path d="M0 288 C 260 253, 700 323, 960 276" fill="none" stroke="#fff" stroke-opacity="0.21" stroke-width="2.06"/><path d="M0 354 C 260 316, 700 392, 960 342" fill="none" stroke="#fff" stroke-opacity="0.18" stroke-width="1.88"/><path d="M0 420 C 260 379, 700 461, 960 408" fill="none" stroke="#fff" stroke-opacity="0.16" stroke-width="1.7"/><path d="M0 486 C 260 442, 700 530, 960 474" fill="none" stroke="#fff" stroke-opacity="0.14" stroke-width="1.52"/><path d="M0 552 C 260 505, 700 599, 960 540" fill="none" stroke="#fff" stroke-opacity="0.11" stroke-width="1.34"/><path d="M0 618 C 260 568, 700 668, 960 606" fill="none" stroke="#fff" stroke-opacity="0.09" stroke-width="1.16"/></g>
+<rect width="960" height="720" fill="url(#v)"/>
+</svg>

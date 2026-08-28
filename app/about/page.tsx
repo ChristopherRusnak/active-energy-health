@@ -1,10 +1,11 @@
 import Link from 'next/link'
+import Team from '@/components/sections/Team'
 import { BOOKING_URL } from '@/lib/brand'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'About | Active Energy Health',
-  description: 'Physician-directed hormone health and aesthetic medicine in Saskatoon. Meet the team behind Active Energy Health.',
+  description: 'Hormone health and aesthetic medicine in Saskatoon, built on physician-designed protocols. Meet the team behind Active Energy Health.',
 }
 
 export default function AboutPage() {
@@ -69,7 +70,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {[
               { heading: 'Transparency', body: 'We tell you what we can do, what we can\'t, and what the evidence actually says — before you commit to anything.' },
-              { heading: 'Clinical accountability', body: 'A physician is responsible for every treatment plan. Full stop.' },
+              { heading: 'Clinical accountability', body: 'Our physician designs the protocols and a nurse practitioner reviews your labs and prescribes. A named clinician is accountable for your plan.' },
               { heading: 'No upselling', body: 'You get what you need, not what\'s most profitable. We\'d rather lose a sale than damage a patient relationship.' },
               { heading: 'Continuity', body: 'Hormone optimisation is not a one-time appointment. We monitor, adjust, and follow up because that\'s what works.' },
             ].map((v) => (
@@ -83,6 +84,8 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      <Team />
 
       {/* CTA */}
       <div className="bg-white py-16 px-4 sm:px-[clamp(1rem,4vw,3rem)] border-t border-navy/[0.07]">
@@ -98,7 +101,7 @@ export default function AboutPage() {
             href={BOOKING_URL}
             className="inline-flex items-center font-body text-sm font-600 uppercase tracking-[0.1em] bg-electric text-white px-8 py-4 rounded-sm hover:bg-blue-light transition-colors duration-200"
           >
-            Book a Free Consultation
+            Book Now
           </Link>
         </div>
       </div>

@@ -1,67 +1,270 @@
-const team = [
+/**
+ * Team section — rendered on the About page.
+ *
+ * PHOTOS: just drop headshots into /public/team/ named after the person's slug —
+ * e.g. andrea-clinton.jpg. They are picked up automatically at build time, so adding a
+ * photo needs no code change at all. See /public/team/README.md for the exact filenames.
+ * .jpg, .jpeg, .png, .webp and .avif all work; portrait 4:5 crops look best.
+ * A member with no matching file shows a neutral "Photo coming" state. A member with
+ * `hidePhoto: true` has chosen not to appear at all — they render an initials monogram
+ * instead, which reads as deliberate rather than as a missing asset, and no file will
+ * override that. An explicit `photo` path still wins if you ever need to override one.
+ *
+ * COMPLIANCE — read before editing:
+ *  - `role` and `credentials` must reflect what a person is actually registered to do.
+ *    Never upgrade a title for marketing effect.
+ *  - Never name a neuromodulator brand. Megan's role is "Cosmetic Injectables" — the
+ *    brand names used internally must not appear on the site.
+ *  - Nurse practitioners are the prescribers here; the physician authors the protocols
+ *    they prescribe against. Do not write copy implying the physician treats patients.
+ */
+
+import fs from 'node:fs'
+import path from 'node:path'
+
+const PHOTO_DIR = path.join(process.cwd(), 'public', 'team')
+const PHOTO_EXTS = ['.jpg', '.jpeg', '.png', '.webp', '.avif']
+
+/** Turn "Dr. Christopher Rusnak" into "christopher-rusnak". */
+function slugify(name: string) {
+  return name
+    .replace(/^Dr\.\s*/, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '')
+}
+
+/**
+ * Map slug -> public path for whatever headshots currently exist in /public/team.
+ * Read once at module load; this is a server component, so it never reaches the client.
+ * A missing folder is not an error — it just means no photos have been added yet.
+ */
+function loadPhotos(): Record<string, string> {
+  try {
+    return Object.fromEntries(
+      fs
+        .readdirSync(PHOTO_DIR)
+        .filter((f) => PHOTO_EXTS.includes(path.extname(f).toLowerCase()))
+        .map((f) => [path.basename(f, path.extname(f)).toLowerCase(), `/team/${f}`]),
+    )
+  } catch {
+    return {}
+  }
+}
+
+type Member = {
+  name: string
+  credentials: string
+  role: string
+  does: string
+  photo?: string
+  hidePhoto?: boolean
+}
+
+type Group = {
+  label: string
+  blurb: string
+  members: Member[]
+}
+
+const groups: Group[] = [
   {
-    name: 'Dr. [Name]',
-    credentials: 'MD, CCFP-EM',
-    role: 'Medical Director',
-    placeholder: true,
+    label: 'Medical oversight',
+    blurb: 'They set the standards the clinic runs on.',
+    members: [
+      {
+        name: 'Dr. Christopher Rusnak',
+        credentials: 'MD, CCFP(EM)',
+        role: 'Medical Director',
+        does: 'Writes and maintains the treatment protocols and clinical guidelines every programme here runs on.',
+        hidePhoto: true,
+      },
+      {
+        name: 'Marina Da Silva',
+        credentials: '',
+        role: 'Clinical Pharmacist',
+        does: 'Reviews medications, dosing, and interactions across our hormone and weight management programmes.',
+      },
+    ],
   },
   {
-    name: '[Name]',
-    credentials: 'RN, BScN',
-    role: 'Clinical Nurse',
-    placeholder: true,
+    label: 'Nurse practitioners',
+    blurb: 'They review your labs, meet you in person, and write your prescription.',
+    members: [
+      {
+        name: 'Andrea Clinton',
+        credentials: 'NP',
+        role: 'Nurse Practitioner',
+        does: 'Hormone replacement and testosterone replacement therapy.',
+      },
+      {
+        name: 'Heather Plaxton',
+        credentials: 'NP',
+        role: 'Nurse Practitioner',
+        does: 'Hormone replacement and testosterone replacement therapy.',
+      },
+      {
+        name: 'Michael McFadden',
+        credentials: 'NP',
+        role: 'Nurse Practitioner',
+        does: 'Testosterone replacement therapy.',
+      },
+      {
+        name: 'TJ Olamide',
+        credentials: 'NP',
+        role: 'Nurse Practitioner',
+        does: 'Testosterone replacement therapy.',
+      },
+    ],
   },
   {
-    name: '[Name]',
-    credentials: 'R.Aes',
-    role: 'Medical Aesthetician',
-    placeholder: true,
+    label: 'Coaching',
+    blurb: 'Who you meet first, and who runs your intake.',
+    members: [
+      {
+        name: 'Brent Robinson',
+        credentials: '',
+        role: 'Hormone & TRT Coach',
+        does: 'Leads free consultations and runs the comprehensive intake for hormone and testosterone programmes.',
+      },
+      {
+        name: 'James Priddell',
+        credentials: '',
+        role: 'Hormone & TRT Coach',
+        does: 'Leads free consultations and runs the comprehensive intake for hormone and testosterone programmes.',
+      },
+      {
+        name: 'Heidi Merkosky',
+        credentials: '',
+        role: 'Coach & Medical Aesthetician',
+        does: 'Leads hormone and TRT consultations, and carries out skin treatments in clinic.',
+      },
+    ],
+  },
+  {
+    label: 'Aesthetics',
+    blurb: 'Who carries out your skin and injectable appointments.',
+    members: [
+      {
+        name: 'Megan Park',
+        credentials: 'LPN',
+        role: 'Cosmetic Injectables',
+        does: 'Carries out cosmetic injectable and dermal filler appointments.',
+      },
+      {
+        name: 'Adrea Anderson',
+        credentials: '',
+        role: 'Medical Aesthetician',
+        does: 'Carries out skin and laser treatments in clinic.',
+      },
+    ],
+  },
+  {
+    label: 'Clinic operations',
+    blurb: 'Everything around your appointment.',
+    members: [
+      {
+        name: 'Melody McCoy',
+        credentials: '',
+        role: 'Clinic Operations',
+        does: 'Runs booking, scheduling, and the day-to-day of the clinic.',
+      },
+    ],
   },
 ]
 
+function initials(name: string) {
+  return name
+    .replace(/^Dr\.\s*/, '')
+    .split(' ')
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0])
+    .join('')
+}
+
+function MemberCard({ member, photos }: { member: Member; photos: Record<string, string> }) {
+  // An opt-out always wins; then an explicit path; then whatever file is sitting in /public/team.
+  const photo = member.hidePhoto ? undefined : member.photo ?? photos[slugify(member.name)]
+  return (
+    <div className="rounded-card border border-navy/[0.07] overflow-hidden flex flex-col">
+      <div className="aspect-[4/5] bg-navy/[0.03] border-b border-navy/[0.07] overflow-hidden">
+        {photo ? (
+          /* eslint-disable-next-line @next/next/no-img-element */
+          <img
+            src={photo}
+            alt={`${member.name}, ${member.role} at Active Energy Health`}
+            className="h-full w-full object-cover"
+          />
+        ) : member.hidePhoto ? (
+          <div className="h-full w-full flex items-center justify-center bg-gradient-to-br from-navy to-electric">
+            <span
+              className="font-heading text-white/85"
+              style={{ fontFamily: 'var(--font-heading)', fontSize: '2.6rem', letterSpacing: '0.06em' }}
+            >
+              {initials(member.name)}
+            </span>
+          </div>
+        ) : (
+          <div className="h-full w-full flex flex-col items-center justify-center gap-2 text-navy/20">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+              <circle cx="20" cy="15" r="8" stroke="currentColor" strokeWidth="1.5" />
+              <path d="M4 38c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            </svg>
+            <span className="font-body text-xs uppercase tracking-wider">Photo coming</span>
+          </div>
+        )}
+      </div>
+
+      <div className="p-5 flex flex-col flex-1">
+        <p
+          className="font-heading text-navy mb-0.5"
+          style={{ fontFamily: 'var(--font-heading)', fontSize: '1.15rem', lineHeight: 1.25 }}
+        >
+          {member.name}
+        </p>
+        {member.credentials && (
+          <p className="font-body text-xs text-electric font-500 mb-1">{member.credentials}</p>
+        )}
+        <p className="font-body text-xs text-navy/45 uppercase tracking-[0.1em]">{member.role}</p>
+        <p className="mt-3 font-body text-sm text-navy/60 leading-[1.65]">{member.does}</p>
+      </div>
+    </div>
+  )
+}
+
 export default function Team() {
+  const photos = loadPhotos()
   return (
     <section className="py-[clamp(4rem,8vw,7rem)] bg-white border-t border-navy/[0.07]">
       <div className="max-w-content mx-auto px-4 sm:px-[clamp(1rem,4vw,3rem)]">
 
-        <div className="mb-14">
+        <div className="mb-14 max-w-2xl">
           <p className="kicker mb-3">The team</p>
           <h2
             className="font-heading text-section text-navy"
             style={{ fontFamily: 'var(--font-heading)' }}
           >
-            Credentials behind{' '}
-            <span className="italic text-electric">every appointment.</span>
+            Who you&apos;ll actually{' '}
+            <span className="italic text-electric">see.</span>
           </h2>
+          <p className="mt-5 font-body text-[0.98rem] leading-relaxed text-navy/55">
+            Different appointments are led by different people. Here is who does what, so you know
+            before you walk in.
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          {team.map((member) => (
-            <div
-              key={member.role}
-              className="rounded-card border border-navy/[0.07] overflow-hidden"
-            >
-              {/* Headshot placeholder */}
-              <div className="aspect-[4/5] bg-navy/[0.03] flex items-center justify-center border-b border-navy/[0.07]">
-                <div className="flex flex-col items-center gap-2 text-navy/20">
-                  <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-                    <circle cx="20" cy="15" r="8" stroke="currentColor" strokeWidth="1.5" />
-                    <path d="M4 38c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                  </svg>
-                  <span className="font-body text-xs uppercase tracking-wider">Photo coming</span>
-                </div>
+        <div className="flex flex-col gap-14">
+          {groups.map((group) => (
+            <div key={group.label}>
+              <div className="mb-6 pb-3 border-b border-navy/[0.09] flex flex-wrap items-baseline gap-x-4 gap-y-1">
+                <p className="kicker">{group.label}</p>
+                <p className="font-body text-sm text-navy/45">{group.blurb}</p>
               </div>
-
-              {/* Info */}
-              <div className="p-5">
-                <p
-                  className="font-heading text-navy mb-0.5"
-                  style={{ fontFamily: 'var(--font-heading)', fontSize: '1.15rem' }}
-                >
-                  {member.name}
-                </p>
-                <p className="font-body text-xs text-electric font-500 mb-1">{member.credentials}</p>
-                <p className="font-body text-xs text-navy/45 uppercase tracking-[0.1em]">{member.role}</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {group.members.map((member) => (
+                  <MemberCard key={member.name} member={member} photos={photos} />
+                ))}
               </div>
             </div>
           ))}

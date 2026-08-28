@@ -34,7 +34,7 @@ export default function Footer() {
               <Link href="/services#hormone-health" className="font-body text-sm text-white/60 hover:text-white transition-colors">Hormone Health</Link>
               <Link href="/services#aesthetics" className="font-body text-sm text-white/60 hover:text-white transition-colors">Aesthetic Medicine</Link>
               <Link href="/services#longevity" className="font-body text-sm text-white/60 hover:text-white transition-colors">Longevity</Link>
-              <Link href={BOOKING_URL} className="font-body text-sm text-white/60 hover:text-white transition-colors">Book a Consultation</Link>
+              <Link href={BOOKING_URL} className="font-body text-sm text-white/60 hover:text-white transition-colors">Book Now</Link>
             </div>
           </div>
 

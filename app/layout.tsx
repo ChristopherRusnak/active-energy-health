@@ -22,6 +22,10 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   title: 'Active Energy Health | Hormone Health & Aesthetic Medicine — Saskatoon',
   description: 'Clinician-led hormone health, TRT, HRT, and aesthetic medicine in Saskatoon. Evidence-based care for men and women.',
+  // PREVIEW ONLY — keeps the staging deploy out of Google while the site is in review.
+  // Delete this `robots` block when the site goes live on activeenergyhealth.ca,
+  // otherwise the real site will not be indexed either.
+  robots: { index: false, follow: false },
   keywords: 'TRT Saskatoon, hormone replacement therapy Saskatoon, HRT Saskatoon, testosterone replacement, menopause treatment, cosmetic injectables Saskatoon, medical spa Saskatoon',
   openGraph: {
     title: 'Active Energy Health',

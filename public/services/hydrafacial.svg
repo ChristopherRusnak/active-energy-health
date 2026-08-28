@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 720" width="960" height="720" role="img" aria-hidden="true">
+<defs>
+<linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#2B7FD6"/><stop offset="0.55" stop-color="#5B9AE4"/><stop offset="1" stop-color="#A3C4F3"/>
+</linearGradient>
+<radialGradient id="v" cx="0.5" cy="0.42" r="0.78">
+<stop offset="0.55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#0B1F3D" stop-opacity="0.4"/>
+</radialGradient>
+<clipPath id="c"><rect width="960" height="720"/></clipPath>
+</defs>
+<rect width="960" height="720" fill="url(#g)"/>
+<g clip-path="url(#c)"><g transform="translate(520 360)"><ellipse cx="0" cy="-190" rx="34" ry="185" fill="#fff" fill-opacity="0.06" transform="rotate(0)"/><ellipse cx="0" cy="-190" rx="34" ry="185" fill="#fff" fill-opacity="0.08" transform="rotate(20)"/><ellipse cx="0" cy="-190" rx="34" ry="185" fill="#fff" fill-opacity="0.11" transform="rotate(40)"/><ellipse cx="0" cy="-190" rx="34" ry="185" fill="#fff" fill-opacity="0.06" transform="rotate(60)"/><ellipse cx="0" cy="-190" rx="34" ry="185" fill="#fff" fill-opacity="0.08" transform="rotate(80)"/><ellipse cx="0" cy="-190" rx="34" ry="185" fill="#fff" fill-opacity="0.11" transform="rotate(100)"/><ellipse cx="0" cy="-190" rx="34" ry="185" fill="#fff" fill-opacity="0.06" transform="rotate(120)"/><ellipse cx="0" cy="-190" rx="34" ry="185" fill="#fff" fill-opacity="0.08" transform="rotate(140)"/><ellipse cx="0" cy="-190" rx="34" ry="185" fill="#fff" fill-opacity="0.11" transform="rotate(160)"/><ellipse cx="0" cy="-190" rx="34" ry="185" fill="#fff" fill-opacity="0.06" transform="rotate(180)"/><ellipse cx="0" cy="-190" rx="34" ry="185" fill="#fff" fill-opacity="0.08" transform="rotate(200)"/><ellipse cx="0" cy="-190" rx="34" ry="185" fill="#fff" fill-opacity="0.11" transform="rotate(220)"/><ellipse cx="0" cy="-190" rx="34" ry="185" fill="#fff" fill-opacity="0.06" transform="rotate(240)"/><ellipse cx="0" cy="-190" rx="34" ry="185" fill="#fff" fill-opacity="0.08" transform="rotate(260)"/><ellipse cx="0" cy="-190" rx="34" ry="185" fill="#fff" fill-opacity="0.11" transform="rotate(280)"/><ellipse cx="0" cy="-190" rx="34" ry="185" fill="#fff" fill-opacity="0.06" transform="rotate(300)"/><ellipse cx="0" cy="-190" rx="34" ry="185" fill="#fff" fill-opacity="0.08" transform="rotate(320)"/><ellipse cx="0" cy="-190" rx="34" ry="185" fill="#fff" fill-opacity="0.11" transform="rotate(340)"/></g><circle cx="520" cy="360" r="40" fill="#fff" fill-opacity="0.16"/></g>
+<rect width="960" height="720" fill="url(#v)"/>
+</svg>

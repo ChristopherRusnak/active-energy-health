@@ -34,7 +34,7 @@ export default function Hero() {
                 href={BOOKING_URL}
                 className="font-body text-sm font-600 uppercase tracking-[0.1em] bg-electric text-white px-7 py-4 rounded-sm hover:bg-blue-light transition-colors duration-200 min-h-[44px] flex items-center"
               >
-                Book a Free Consultation
+                Book Now
               </Link>
               <Link
                 href="/services"
@@ -46,7 +46,7 @@ export default function Hero() {
 
             {/* Trust line */}
             <p className="font-body text-xs text-navy/35 mt-8 tracking-wide">
-              Physician-directed care · Lab-informed protocols · In-clinic and ongoing support
+              Physician-designed protocols · Lab-informed dosing · In-clinic and ongoing support
             </p>
           </div>
         </div>

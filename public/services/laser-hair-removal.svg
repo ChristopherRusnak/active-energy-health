@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 720" width="960" height="720" role="img" aria-hidden="true">
+<defs>
+<linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#12294B"/><stop offset="0.55" stop-color="#1A3A6B"/><stop offset="1" stop-color="#0056C1"/>
+</linearGradient>
+<radialGradient id="v" cx="0.5" cy="0.42" r="0.78">
+<stop offset="0.55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#0B1F3D" stop-opacity="0.4"/>
+</radialGradient>
+<clipPath id="c"><rect width="960" height="720"/></clipPath>
+</defs>
+<rect width="960" height="720" fill="url(#g)"/>
+<g clip-path="url(#c)"><circle cx="130" cy="640" r="120" fill="none" stroke="#fff" stroke-opacity="0.26" stroke-width="2.4"/><circle cx="130" cy="640" r="198" fill="none" stroke="#fff" stroke-opacity="0.24" stroke-width="2.28"/><circle cx="130" cy="640" r="276" fill="none" stroke="#fff" stroke-opacity="0.23" stroke-width="2.16"/><circle cx="130" cy="640" r="354" fill="none" stroke="#fff" stroke-opacity="0.21" stroke-width="2.04"/><circle cx="130" cy="640" r="432" fill="none" stroke="#fff" stroke-opacity="0.19" stroke-width="1.92"/><circle cx="130" cy="640" r="510" fill="none" stroke="#fff" stroke-opacity="0.18" stroke-width="1.8"/><circle cx="130" cy="640" r="588" fill="none" stroke="#fff" stroke-opacity="0.16" stroke-width="1.68"/><circle cx="130" cy="640" r="666" fill="none" stroke="#fff" stroke-opacity="0.14" stroke-width="1.56"/><circle cx="130" cy="640" r="744" fill="none" stroke="#fff" stroke-opacity="0.12" stroke-width="1.44"/><circle cx="130" cy="640" r="822" fill="none" stroke="#fff" stroke-opacity="0.11" stroke-width="1.32"/><circle cx="130" cy="640" r="900" fill="none" stroke="#fff" stroke-opacity="0.09" stroke-width="1.2"/></g>
+<rect width="960" height="720" fill="url(#v)"/>
+</svg>

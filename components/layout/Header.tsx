@@ -54,7 +54,7 @@ export default function Header() {
             href={BOOKING_URL as Route}
             className="font-body text-[0.75rem] font-600 uppercase tracking-[0.1em] bg-electric text-white px-5 py-2.5 rounded-sm hover:bg-blue-light transition-colors duration-200"
           >
-            Book a Consultation
+            Book Now
           </Link>
         </nav>
 
@@ -88,7 +88,7 @@ export default function Header() {
             onClick={() => setOpen(false)}
             className="font-body text-[0.75rem] font-600 uppercase tracking-[0.1em] bg-electric text-white px-5 py-3 rounded-sm text-center"
           >
-            Book a Consultation
+            Book Now
           </Link>
         </div>
       )}
