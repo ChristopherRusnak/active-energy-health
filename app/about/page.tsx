@@ -45,7 +45,14 @@ export default function AboutPage() {
                 Active Energy Health was built on a straightforward premise: most people in their 40s and 50s are under-optimised, and most of the solutions they've been offered are either inadequate or inaccessible.
               </p>
               <p>
-                We focus on testosterone and hormone replacement therapy because the evidence is strong, the outcomes are measurable, and the impact on quality of life is significant. We combine that with aesthetic medicine because appearance and function are not separate concerns for most of our patients.
+                We focus on testosterone and hormone replacement therapy because the evidence is strong, the outcomes are measurable, and the impact on quality of life is significant.
+              </p>
+              <p>
+                We combine that with a full aesthetic medicine practice — cosmetic injectables and fillers, laser and light-based skin treatments, medical-grade peels and facials, microneedling, and long-term hair reduction — because appearance and function are not separate concerns for most of our patients. The full breakdown is on our{' '}
+                <Link href="/services" className="text-electric underline underline-offset-2 hover:text-blue-light">
+                  services page
+                </Link>
+                .
               </p>
               <p>
                 Every protocol is built by a physician and monitored with labs. We don't guess, and we don't dose by anecdote.

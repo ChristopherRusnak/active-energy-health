@@ -10,6 +10,11 @@
  * instead, which reads as deliberate rather than as a missing asset, and no file will
  * override that. An explicit `photo` path still wins if you ever need to override one.
  *
+ * `omit: true` is different again — it drops the person from the page entirely (no card,
+ * no monogram, no "Photo coming" tile). Used for someone who shouldn't appear on the site
+ * right now at all, whether that's "no headshot yet" or a deliberate request to stay off.
+ * Their data stays in this file so restoring them later is a one-line change.
+ *
  * COMPLIANCE — read before editing:
  *  - `role` and `credentials` must reflect what a person is actually registered to do.
  *    Never upgrade a title for marketing effect.
@@ -94,6 +99,8 @@ type Member = {
   monogram?: boolean
   /** Extra first-name spellings to match filenames on, e.g. a "Chris_*.png" for a Christopher. */
   photoAliases?: string[]
+  /** Drop this person from the page entirely. See the file header comment. */
+  omit?: boolean
 }
 
 type Group = {
@@ -114,12 +121,18 @@ const groups: Group[] = [
         does: 'Writes and maintains the treatment protocols and clinical guidelines every programme here runs on.',
         monogram: true,
         photoAliases: ['chris'],
+        // Removed from public display at his own request. This is NOT a missing-photo
+        // case — a photo exists (Chris_07_13_2026.png) — so don't re-add just because
+        // one shows up matched. Only remove `omit` if he asks to be added back.
+        omit: true,
       },
       {
         name: 'Marina Da Silva',
         credentials: '',
         role: 'Clinical Pharmacist',
         does: 'Reviews medications, dosing, and interactions across our hormone and weight management programmes.',
+        // No headshot yet (see /public/team/README.md). Remove this line once one lands.
+        omit: true,
       },
     ],
   },
@@ -156,6 +169,8 @@ const groups: Group[] = [
         credentials: 'NP',
         role: 'Nurse Practitioner',
         does: 'Testosterone replacement therapy.',
+        // No headshot yet (see /public/team/README.md). Remove this line once one lands.
+        omit: true,
       },
     ],
   },
@@ -198,6 +213,8 @@ const groups: Group[] = [
         credentials: '',
         role: 'Medical Aesthetician',
         does: 'Carries out skin and laser treatments in clinic.',
+        // No headshot yet (see /public/team/README.md). Remove this line once one lands.
+        omit: true,
       },
     ],
   },
@@ -284,6 +301,11 @@ function MemberCard({ member, photos }: { member: Member; photos: PhotoIndex }) 
 
 export default function Team() {
   const photos = loadPhotos()
+  // Drop omitted members, then drop any group left with nobody to show (e.g. "Medical
+  // oversight" once both its members are omitted) rather than rendering an empty section.
+  const visibleGroups = groups
+    .map((g) => ({ ...g, members: g.members.filter((m) => !m.omit) }))
+    .filter((g) => g.members.length > 0)
   return (
     <section className="py-[clamp(4rem,8vw,7rem)] bg-white border-t border-navy/[0.07]">
       <div className="max-w-content mx-auto px-4 sm:px-[clamp(1rem,4vw,3rem)]">
@@ -304,7 +326,7 @@ export default function Team() {
         </div>
 
         <div className="flex flex-col gap-14">
-          {groups.map((group) => (
+          {visibleGroups.map((group) => (
             <div key={group.label}>
               <div className="mb-6 pb-3 border-b border-navy/[0.09] flex flex-wrap items-baseline gap-x-4 gap-y-1">
                 <p className="kicker">{group.label}</p>
