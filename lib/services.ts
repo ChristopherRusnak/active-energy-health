@@ -3,16 +3,23 @@
  *
  * COMPLIANCE — Canadian health advertising. Read before editing any string here:
  *  - Never name a neuromodulator brand. The service is always "Cosmetic Injectables".
- *  - Never describe laser hair removal as lasting forever. Use "long-term reduction".
+ *  - Never describe laser hair removal (or any hair reduction) as permanent/forever. Use
+ *    "long-term reduction".
  *  - No guaranteed outcomes, no promised timelines, no "you will" claims.
  *  - `concerns` are the reasons patients BOOK a treatment, not outcomes we promise.
  *    They render under the label "Patients book this for" for exactly that reason.
  *  - No patient testimonials anywhere on the site (CPSS advertising standards).
+ *  - `priceFrom` is only set for services the clinic has decided to price publicly
+ *    (aesthetic device/peel/facial treatments). Never add a price for injectables,
+ *    fillers, or GLP-1s — that's a deliberate decision, not an oversight. Every price
+ *    here must come from the clinic's actual current price list — never estimated.
  *
  * IMAGES — every card reads `image` below. The current files are brand-drawn SVG
- * placeholders in /public/services. To use a real photograph, drop it in that same
- * folder and change the one path string on the service; nothing else needs to move.
- * Landscape 4:3 crops at roughly 960x720 or larger look best.
+ * placeholders in /public/services. Several new services below reuse the closest existing
+ * placeholder because no dedicated artwork exists yet — that's expected, not a bug. To use
+ * a real photograph, drop it in that same folder and change the one path string on the
+ * service; nothing else needs to move. Landscape 4:3 crops at roughly 960x720 or larger
+ * look best.
  */
 
 export type TabId = 'hormones' | 'skin' | 'body' | 'longevity'
@@ -28,6 +35,11 @@ export type Service = {
   /** Short factual note. Keep it factual (setting, supervision, format) — never an outcome. */
   note: string
   image: string
+  /**
+   * Optional "From $X" shown on the card. Only set for services the clinic has decided to
+   * price publicly (see the compliance note above) — omit entirely rather than guess.
+   */
+  priceFrom?: string
 }
 
 export type Tab = {
@@ -58,7 +70,7 @@ export const TABS: Tab[] = [
     label: 'Body',
     aliases: ['body'],
     intro:
-      'Treatments aimed at the things you notice day to day — unwanted hair, weight, and how your metabolism is behaving.',
+      'Treatments aimed at the things you notice day to day — unwanted hair, ink you no longer want, weight, and how your metabolism is behaving.',
   },
   {
     id: 'longevity',
@@ -72,11 +84,11 @@ export const TABS: Tab[] = [
 export const SERVICES: Service[] = [
   {
     id: 'hrt-women',
-    name: "Women's HRT & Menopause Care",
+    name: 'Menopausal Hormone Therapy (MHT)',
     tabs: ['hormones'],
-    concerns: ['Hot flashes & night sweats', 'Sleep disruption', 'Low energy & mood', 'Brain fog'],
+    concerns: ['Hot flashes & night sweats', 'Perimenopause symptoms', 'Sleep disruption', 'Brain fog'],
     description:
-      'Hormone replacement therapy for perimenopause and menopause, built from your bloodwork and your symptoms rather than a standard template. We look at sleep, mood, energy, body composition, and sexual health together, then adjust as your body responds.',
+      "Hormone therapy for perimenopause, menopause, and beyond — built from your bloodwork and your symptoms rather than a standard template. Having symptoms while your labs look ‘normal’ doesn't mean nothing is happening: perimenopausal patients are evaluated and treated here, not turned away pending a diagnosis. We look at sleep, mood, energy, body composition, and sexual health together, then adjust as your body responds. Compounded, custom-formulated options (sometimes called BHRT) are available and discussed case by case.",
     note: 'Physician-supervised',
     image: '/services/hrt-women.svg',
   },
@@ -122,33 +134,84 @@ export const SERVICES: Service[] = [
   },
   {
     id: 'laser-resurfacing',
-    name: 'Laser Skin Resurfacing',
+    name: 'Skin Renewal (Non-Ablative Fractional)',
     tabs: ['skin'],
-    concerns: ['Uneven texture', 'Fine lines', 'Pigmentation', 'Redness'],
+    concerns: ['Uneven texture', 'Fine lines', 'Enlarged pores', 'Overall renewal'],
     description:
-      'Non-ablative laser that works beneath the surface to address texture, tone, and fine lines. Comfortable enough to fit around your week, with no downtime afterward.',
-    note: 'No downtime',
+      'A fractional non-ablative laser (1540 nm) that delivers energy beneath the surface to stimulate collagen remodeling while leaving the outer layer largely intact — improves texture, pores, and fine lines with minimal to moderate downtime.',
+    note: 'Minimal to moderate downtime',
     image: '/services/laser-resurfacing.svg',
+    priceFrom: '$299',
+  },
+  {
+    id: 'skin-resurfacing-ablative',
+    name: 'Deep Resurfacing (Ablative)',
+    tabs: ['skin'],
+    concerns: ['Acne scarring', 'Deep texture', 'Sun damage', 'Fine lines'],
+    description:
+      'Fractional ablative resurfacing (2940 nm Er:YAG) for more pronounced scarring, texture, and sun damage than our non-ablative options address, selectively resurfacing damaged skin while stimulating collagen renewal. More downtime, and a bigger result from a single treatment.',
+    note: '5-7+ days downtime',
+    // Placeholder image reused from Skin Renewal — a dedicated graphic is a good add for the graphics team.
+    image: '/services/laser-resurfacing.svg',
+    priceFrom: '$449.99',
   },
   {
     id: 'ipl-photofacial',
-    name: 'IPL Photofacial',
+    name: 'PhotoFacial (IPL)',
     tabs: ['skin'],
     concerns: ['Sun damage', 'Rosacea & flushing', 'Cherry angiomas', 'Uneven tone'],
     description:
-      'Intense pulsed light targeting sun damage, visible vessels, and uneven tone across the face, neck, and chest. Most patients see gradual change over a planned series of sessions.',
+      'Intense pulsed light (MaxG IPL) targeting sun damage, visible vessels, and uneven tone across the face, neck, and chest. Most patients see gradual change over a planned series of sessions.',
     note: 'Planned as a series',
     image: '/services/ipl-photofacial.svg',
+    priceFrom: '$225',
+  },
+  {
+    id: 'threeforme',
+    name: 'ThreeForMe',
+    tabs: ['skin'],
+    concerns: ['Sun damage', 'Redness', 'Fine lines', 'Texture'],
+    description:
+      'Combines IPL colour correction with fractional 1540 nm collagen remodeling in one visit — addressing colour, redness, and texture together rather than in three separate appointments.',
+    note: 'Minimal to moderate downtime',
+    // Placeholder image reused from PhotoFacial — a dedicated graphic is a good add for the graphics team.
+    image: '/services/ipl-photofacial.svg',
+    priceFrom: '$375',
+  },
+  {
+    id: 'tight-bright',
+    name: 'Tight & Bright',
+    tabs: ['skin'],
+    concerns: ['Fine lines', 'Skin tone', 'Texture', 'Early signs of aging'],
+    description:
+      'A gentle non-ablative 1064 nm photoacoustic laser (ClearLift) that stimulates collagen with virtually no downtime. Five customizable treatment depths let energy delivery be matched to your skin.',
+    note: 'Little to no downtime',
+    // Placeholder image reused from Skin Renewal — a dedicated graphic is a good add for the graphics team.
+    image: '/services/laser-resurfacing.svg',
+    priceFrom: '$225',
+  },
+  {
+    id: 'calm-clear',
+    name: 'Calm & Clear (Acne Treatment)',
+    tabs: ['skin'],
+    concerns: ['Acne redness', 'Post-acne marks', 'Visible inflammation'],
+    description:
+      'A light-based treatment targeting the vascular redness and visible inflammation common in acne-prone skin, incorporated into a broader acne treatment plan where appropriate.',
+    note: 'Minimal downtime',
+    // Placeholder image reused from PhotoFacial — a dedicated graphic is a good add for the graphics team.
+    image: '/services/ipl-photofacial.svg',
+    priceFrom: '$99',
   },
   {
     id: 'microneedling',
     name: 'Microneedling',
     tabs: ['skin'],
-    concerns: ['Acne scarring', 'Enlarged pores', 'Uneven texture', 'Overall rejuvenation'],
+    concerns: ['Enlarged pores', 'Uneven texture', 'Fine lines', 'Overall rejuvenation'],
     description:
-      'Collagen induction therapy that uses controlled micro-injury to prompt your own skin to remodel. Often planned alongside peels or laser as part of a longer skin programme.',
+      'Collagen induction therapy (InnoPen) using controlled micro-injury to prompt your own skin to remodel, performed by our certified estheticians. Often planned alongside peels or laser as part of a longer skin programme.',
     note: 'Combines with other treatments',
     image: '/services/microneedling.svg',
+    priceFrom: '$249',
   },
   {
     id: 'hydrafacial',
@@ -156,9 +219,10 @@ export const SERVICES: Service[] = [
     tabs: ['skin'],
     concerns: ['Congestion & blackheads', 'Dullness', 'Dehydrated skin', 'Before an event'],
     description:
-      'A medical-grade cleanse, exfoliation, extraction, and hydration infusion on the HydraFacial Syndeo. No downtime — this is the one to book when you want your skin looking its best this week.',
+      'A medical-grade cleanse, exfoliation, extraction, and hydration treatment across four tiers — from a quick Hydra-Dermabrasion reset up to the full Platinum experience with lymphatic drainage and LED light therapy. No downtime at any tier.',
     note: 'No downtime',
     image: '/services/hydrafacial.svg',
+    priceFrom: '$125',
   },
   {
     id: 'chemical-peels',
@@ -166,19 +230,93 @@ export const SERVICES: Service[] = [
     tabs: ['skin'],
     concerns: ['Active acne', 'Pigmentation', 'Rough texture', 'Dullness'],
     description:
-      'Clinical-grade peels selected to your skin type and goals, using the Vivier and Pro-Derm pharmaceutical lines we carry. Strength is built up gradually rather than pushed.',
-    note: 'Pharmaceutical-grade lines',
+      'Clinical chemical peels — including our Jessner Plus+ and Vivier formulations — matched to your skin type and goals. Strength is built up gradually rather than pushed.',
+    note: 'Pharmaceutical-grade',
     image: '/services/chemical-peels.svg',
+    priceFrom: '$120',
+  },
+  {
+    id: 'scar-revision',
+    name: 'Customized Scar Revision',
+    tabs: ['skin'],
+    concerns: ['Acne scars', 'Surgical scars', 'Traumatic scars', 'Textural or pigmented scars'],
+    description:
+      "An individualized plan built from an assessment of your scar's type, depth, texture, and colour — combining resurfacing, collagen remodeling, redness, or pigment correction as needed.",
+    note: 'Fully customized',
+    // Placeholder image reused from Skin Renewal — a dedicated graphic is a good add for the graphics team.
+    image: '/services/laser-resurfacing.svg',
+    priceFrom: '$99',
+  },
+  {
+    id: 'stretch-mark-revision',
+    name: 'Customized Stretch Mark Revision',
+    tabs: ['skin', 'body'],
+    concerns: ['New & mature stretch marks', 'Redness', 'Texture'],
+    description:
+      'A plan built around the age, colour, depth, and texture of your stretch marks — combining collagen remodeling, resurfacing, and textural renewal as appropriate.',
+    note: 'Fully customized',
+    // Placeholder image reused from Skin Renewal — a dedicated graphic is a good add for the graphics team.
+    image: '/services/laser-resurfacing.svg',
+    priceFrom: '$99',
+  },
+  {
+    id: 'spot-pigmentation',
+    name: 'Spot Pigmentation Correction',
+    tabs: ['skin'],
+    concerns: ['Sun spots', 'Age spots', 'Isolated pigmentation'],
+    description:
+      'Targeted correction for individual pigmented spots — sun spots, age spots — without treating the entire surrounding area.',
+    note: 'Face & body',
+    // Placeholder image reused from PhotoFacial — a dedicated graphic is a good add for the graphics team.
+    image: '/services/ipl-photofacial.svg',
+    priceFrom: '$75',
+  },
+  {
+    id: 'vascular-removal',
+    name: 'Vascular Removal',
+    tabs: ['skin'],
+    concerns: ['Visible vessels', 'Spider veins', 'Cherry angiomas'],
+    description:
+      'Targeted light and laser treatment to reduce the appearance of visible facial and body vessels, spider veins, and cherry angiomas. Varicose veins are not treated at this clinic.',
+    note: 'Facial & body vessels',
+    // Placeholder image reused from PhotoFacial — a dedicated graphic is a good add for the graphics team.
+    image: '/services/ipl-photofacial.svg',
+    priceFrom: '$75',
+  },
+  {
+    id: 'non-surgical-lift',
+    name: 'Custom Non-Surgical Lift',
+    tabs: ['skin'],
+    concerns: ['Fine lines', 'Skin laxity', 'Texture'],
+    description:
+      'A personalized, area-specific plan — often around the eyes, mouth, or neck — combining vascular light therapy, ClearLift, fractional laser, and ablative resurfacing as needed for a firmer, smoother look without surgery.',
+    note: 'Fully customized',
+    // Placeholder image reused from Skin Renewal — a dedicated graphic is a good add for the graphics team.
+    image: '/services/laser-resurfacing.svg',
+    priceFrom: '$99',
   },
   {
     id: 'laser-hair-removal',
-    name: 'Laser Hair Removal',
+    name: 'Permanent Hair Reduction',
     tabs: ['body'],
     concerns: ['Unwanted hair', 'Ingrown hairs', 'Razor irritation', 'All skin tones'],
     description:
-      'Medical-grade laser with melanin reader technology, which lets us treat safely across a full range of skin tones. Planned as a series of sessions working toward long-term hair reduction.',
+      'Medical-grade laser with melanin reader technology, which lets us treat safely across a full range of skin tones. Priced per treatment area, with a discounted membership rate unlocked once you purchase a pack of three — that rate then applies to any area you add afterward.',
     note: 'Long-term reduction',
     image: '/services/laser-hair-removal.svg',
+    priceFrom: '$50',
+  },
+  {
+    id: 'tattoo-removal',
+    name: 'Laser Tattoo Removal',
+    tabs: ['body'],
+    concerns: ['Unwanted tattoos', 'Tattoo fading', 'Cover-up preparation'],
+    description:
+      "Q-switched and KTP laser wavelengths, selected according to your ink colour, depth, and skin characteristics, working toward fading, cover-up preparation, or removal where achievable over a planned series of sessions. Eligible treatment packages can be split into two monthly payments.",
+    note: 'Planned as a series',
+    // Placeholder image reused from Laser Hair Removal — a dedicated graphic is a good add for the graphics team.
+    image: '/services/laser-hair-removal.svg',
+    priceFrom: '$50',
   },
   {
     id: 'glp1-weight',
@@ -211,14 +349,29 @@ export const SERVICES: Service[] = [
 export const CONCERNS: { label: string; tab: TabId; services: string[] }[] = [
   { label: 'Low energy & fatigue', tab: 'hormones', services: ['trt-men', 'hrt-women', 'hormone-panels'] },
   { label: 'Hot flashes & night sweats', tab: 'hormones', services: ['hrt-women'] },
+  { label: 'Perimenopause symptoms', tab: 'hormones', services: ['hrt-women'] },
   { label: 'Brain fog', tab: 'hormones', services: ['hrt-women', 'hormone-panels'] },
   { label: 'Low libido', tab: 'hormones', services: ['trt-men', 'hrt-women'] },
-  { label: 'Fine lines', tab: 'skin', services: ['cosmetic-injectables', 'laser-resurfacing', 'microneedling'] },
+  {
+    label: 'Fine lines',
+    tab: 'skin',
+    services: ['cosmetic-injectables', 'laser-resurfacing', 'microneedling', 'tight-bright', 'non-surgical-lift'],
+  },
   { label: 'Volume loss', tab: 'skin', services: ['dermal-fillers'] },
-  { label: 'Acne & scarring', tab: 'skin', services: ['microneedling', 'chemical-peels', 'hydrafacial'] },
-  { label: 'Sun damage & redness', tab: 'skin', services: ['ipl-photofacial', 'laser-resurfacing'] },
+  {
+    label: 'Acne & scarring',
+    tab: 'skin',
+    services: ['microneedling', 'chemical-peels', 'hydrafacial', 'scar-revision', 'calm-clear', 'skin-resurfacing-ablative'],
+  },
+  {
+    label: 'Sun damage & redness',
+    tab: 'skin',
+    services: ['ipl-photofacial', 'laser-resurfacing', 'threeforme', 'spot-pigmentation', 'vascular-removal'],
+  },
   { label: 'Dull, congested skin', tab: 'skin', services: ['hydrafacial', 'chemical-peels'] },
+  { label: 'Stretch marks', tab: 'skin', services: ['stretch-mark-revision'] },
   { label: 'Unwanted hair', tab: 'body', services: ['laser-hair-removal'] },
+  { label: 'Unwanted tattoos', tab: 'body', services: ['tattoo-removal'] },
   { label: 'Weight & metabolism', tab: 'body', services: ['glp1-weight'] },
   { label: 'Recovery & performance', tab: 'longevity', services: ['nad-iv', 'hormone-panels', 'glp1-weight'] },
 ]
@@ -256,7 +409,7 @@ export const STANDARDS = [
   'Labs reviewed and prescriptions written by a nurse practitioner who meets you in person',
   'Medication and dosing reviewed by a clinical pharmacist',
   'Melanin reader laser technology, so we can treat a full range of skin tones',
-  'Vivier and Pro-Derm pharmaceutical-grade skincare',
+  'Vivier pharmaceutical-grade skincare',
   'We decline treatments we do not think will help you',
 ]
 

@@ -18,12 +18,14 @@ function ServiceCard({
   concerns,
   note,
   image,
+  priceFrom,
 }: {
   name: string
   description: string
   concerns: string[]
   note: string
   image: string
+  priceFrom?: string
 }) {
   return (
     <article className="group flex flex-col overflow-hidden rounded-card border border-navy/[0.07] bg-white transition-shadow duration-200 hover:shadow-md">
@@ -43,6 +45,15 @@ function ServiceCard({
         <span className="absolute bottom-3 left-3 rounded-sm bg-white/[0.92] px-2.5 py-1 font-body text-[0.62rem] font-600 uppercase tracking-[0.11em] text-navy backdrop-blur-sm">
           {note}
         </span>
+        {/*
+          Deliberately omitted for injectables, fillers, and GLP-1s — see the compliance
+          note in lib/services.ts. Only render this badge when the service sets priceFrom.
+        */}
+        {priceFrom && (
+          <span className="absolute bottom-3 right-3 rounded-sm bg-electric px-2.5 py-1 font-body text-[0.62rem] font-600 uppercase tracking-[0.11em] text-white backdrop-blur-sm">
+            From {priceFrom}
+          </span>
+        )}
       </div>
 
       <div className="flex flex-1 flex-col p-6">

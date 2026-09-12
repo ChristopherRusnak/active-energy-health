@@ -10,7 +10,14 @@ time the site builds; no code change required.
 - Keep the full-resolution originals here. They are resized and converted to WebP on
   demand by next/image, so a 600kB PNG is delivered as roughly 8-12kB.
 
-**Still needed:** Marina Da Silva, TJ Olamide, Adrea Anderson.
+**Still needed:** Marina Da Silva, TJ Olamide, Adrea Anderson. Until a photo lands here,
+these three are hidden from the live Team section entirely (`omit: true` in `Team.tsx`) —
+drop the file in and remove that line, they don't need anything else changed.
+
+**Dr. Christopher Rusnak is hidden from the Team section by his own request**, separately
+from the photo situation — a headshot exists (`Chris_07_13_2026.png`) but is intentionally
+not shown. Don't restore him just because a photo is present; only remove `omit: true` in
+`Team.tsx` if he asks to be added back.
 
 ## How matching works
 
